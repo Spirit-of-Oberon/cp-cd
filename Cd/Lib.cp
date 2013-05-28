@@ -504,5 +504,61 @@ PROCEDURE [ccall] ContextDXF*          ["cdContextDXF"         ] (): Context;
 PROCEDURE [ccall] ContextEMF*          ["cdContextEMF"         ] (): Context;
 PROCEDURE [ccall] ContextWMF*          ["cdContextWMF"         ] (): Context;
 
+(* World Coordinate Functions *)
+
+(* coordinate transformation *)
+PROCEDURE [ccall] wdCanvasWindow*              ["wdCanvasWindow"             ] (canvas: Canvas; xmin, xmax, ymin, ymax: REAL);
+PROCEDURE [ccall] wdCanvasGetWindow*           ["wdCanvasGetWindow"          ] (canvas: Canvas; VAR xmin, xmax, ymin, ymax: REAL);
+PROCEDURE [ccall] wdCanvasViewport*            ["wdCanvasViewport"           ] (canvas: Canvas; xmin, xmax, ymin, ymax: INTEGER);
+PROCEDURE [ccall] wdCanvasGetViewport*         ["wdCanvasGetViewport"        ] (canvas: Canvas; VAR xmin, xmax, ymin, ymax: INTEGER);
+PROCEDURE [ccall] wdCanvasWorld2Canvas*        ["wdCanvasWorld2Canvas"       ] (canvas: Canvas; xw, yw: REAL; VAR xv, yv: INTEGER);
+PROCEDURE [ccall] wdCanvasWorld2CanvasSize*    ["wdCanvasWorld2CanvasSize"   ] (canvas: Canvas; hw, vw: REAL; VAR hv, vv: INTEGER);
+PROCEDURE [ccall] wdCanvasCanvas2World*        ["wdCanvasCanvas2World"       ] (canvas: Canvas; xv, yv: INTEGER; VAR xw, yw: REAL);
+PROCEDURE [ccall] wdCanvasSetTransform*        ["wdCanvasSetTransform"       ] (canvas: Canvas; sx, sy, tx, ty: REAL);
+PROCEDURE [ccall] wdCanvasGetTransform*        ["wdCanvasGetTransform"       ] (canvas: Canvas; VAR sx, sy, tx, ty: REAL);
+PROCEDURE [ccall] wdCanvasTranslate*           ["wdCanvasTranslate"          ] (canvas: Canvas; dtx, dty: REAL);
+PROCEDURE [ccall] wdCanvasScale*               ["wdCanvasScale"              ] (canvas: Canvas; dsx, dsy: REAL);
+PROCEDURE [ccall] wdCanvasClipArea*            ["wdCanvasClipArea"           ] (canvas: Canvas; xmin, xmax, ymin, ymax: REAL);
+PROCEDURE [ccall] wdCanvasGetClipArea*         ["wdCanvasGetClipArea"        ] (canvas: Canvas; VAR xmin, xmax, ymin, ymax: REAL): INTEGER;
+PROCEDURE [ccall] wdCanvasIsPointInRegion*     ["wdCanvasIsPointInRegion"    ] (canvas: Canvas; x, y: REAL): INTEGER;
+PROCEDURE [ccall] wdCanvasOffsetRegion*        ["wdCanvasOffsetRegion"       ] (canvas: Canvas; x, y: REAL);
+PROCEDURE [ccall] wdCanvasGetRegionBox*        ["wdCanvasGetRegionBox"       ] (canvas: Canvas; VAR xmin, xmax, ymin, ymax: REAL);
+(* primitives *)
+PROCEDURE [ccall] wdCanvasPixel*               ["wdCanvasPixel"              ] (canvas: Canvas; x, y: REAL; color: INTEGER);
+PROCEDURE [ccall] wdCanvasMark*                ["wdCanvasMark"               ] (canvas: Canvas; x, y: REAL);
+PROCEDURE [ccall] wdCanvasLine*                ["wdCanvasLine"               ] (canvas: Canvas; x1, y1, x2, y2: REAL);
+PROCEDURE [ccall] wdCanvasVertex*              ["wdCanvasVertex"             ] (canvas: Canvas; x, y: REAL);
+PROCEDURE [ccall] wdCanvasRect*                ["wdCanvasRect"               ] (canvas: Canvas; xmin, xmax, ymin, ymax: REAL);
+PROCEDURE [ccall] wdCanvasBox*                 ["wdCanvasBox"                ] (canvas: Canvas; xmin, xmax, ymin, ymax: REAL);
+PROCEDURE [ccall] wdCanvasArc*                 ["wdCanvasArc"                ] (canvas: Canvas; xc, yc, w, h, angle1, angle2: REAL);
+PROCEDURE [ccall] wdCanvasSector*              ["wdCanvasSector"             ] (canvas: Canvas; xc, yc, w, h, angle1, angle2: REAL);
+PROCEDURE [ccall] wdCanvasChord*               ["wdCanvasChord"              ] (canvas: Canvas; xc, yc, w, h, angle1, angle2: REAL);
+PROCEDURE [ccall] wdCanvasText*                ["wdCanvasText"               ] (canvas: Canvas; x, y: REAL; s: String);
+PROCEDURE [ccall] wdCanvasPutImageRect*        ["wdCanvasPutImageRect"       ] (canvas: Canvas; image: Image; x, y: REAL; xmin, xmax, ymin, ymax: INTEGER);
+PROCEDURE [ccall] wdCanvasPutImageRectRGB*     ["wdCanvasPutImageRectRGB"    ] (canvas: Canvas; iw, ih: INTEGER; r, g, b: String; x, y, w, h: REAL; xmin, xmax, ymin, ymax: INTEGER);
+PROCEDURE [ccall] wdCanvasPutImageRectRGBA*    ["wdCanvasPutImageRectRGBA"   ] (canvas: Canvas; iw, ih: INTEGER; r, g, b, a: String; x, y, w, h: REAL; xmin, xmax, ymin, ymax: INTEGER);
+PROCEDURE [ccall] wdCanvasPutImageRectMap*     ["wdCanvasPutImageRectMap"    ] (canvas: Canvas; iw, ih: INTEGER; index: String; colors: INTEGER; x, y, w, h: REAL; xmin, xmax, ymin, ymax: INTEGER);
+PROCEDURE [ccall] wdCanvasPutBitmap*           ["wdCanvasPutBitmap"          ] (canvas: Canvas; bitmap: Bitmap; x, y, w, h: REAL);
+(* attributes *)
+PROCEDURE [ccall] wdCanvasLineWidth*           ["wdCanvasLineWidth"          ] (canvas: Canvas; width: REAL): REAL;
+PROCEDURE [ccall] wdCanvasFont*                ["wdCanvasFont"               ] (canvas: Canvas; type_face: String; style: INTEGER; size: REAL): INTEGER;
+PROCEDURE [ccall] wdCanvasGetFont*             ["wdCanvasGetFont"            ] (canvas: Canvas; type_face: String; VAR style: INTEGER; VAR size: REAL);
+PROCEDURE [ccall] wdCanvasMarkSize*            ["wdCanvasMarkSize"           ] (canvas: Canvas; size: REAL): REAL;
+PROCEDURE [ccall] wdCanvasGetFontDim*          ["wdCanvasGetFontDim"         ] (canvas: Canvas; VAR max_width, height, ascent, descent: REAL);
+PROCEDURE [ccall] wdCanvasGetTextSize*         ["wdCanvasGetTextSize"        ] (canvas: Canvas; s: String; VAR width, height: REAL);
+PROCEDURE [ccall] wdCanvasGetTextBox*          ["wdCanvasGetTextBox"         ] (canvas: Canvas; x, y: REAL; s: String; VAR xmin, xmax, ymin, ymax: REAL);
+PROCEDURE [ccall] wdCanvasGetTextBounds*       ["wdCanvasGetTextBounds"      ] (canvas: Canvas; x, y: REAL; s: String; VAR rect: REAL);
+PROCEDURE [ccall] wdCanvasStipple*             ["wdCanvasStipple"            ] (canvas: Canvas; w, h: INTEGER; fgbg: String; w_mm, h_mm: REAL);
+PROCEDURE [ccall] wdCanvasPattern*             ["wdCanvasPattern"            ] (canvas: Canvas; w, h: INTEGER; color: INTEGER; w_mm, h_mm: REAL);
+(* vector text *)
+PROCEDURE [ccall] wdCanvasVectorTextDirection* ["wdCanvasVectorTextDirection"] (canvas: Canvas; x1, y1, x2, y2: REAL);
+PROCEDURE [ccall] wdCanvasVectorTextSize*      ["wdCanvasVectorTextSize"     ] (canvas: Canvas; size_x, size_y: REAL; s: String);
+PROCEDURE [ccall] wdCanvasGetVectorTextSize*   ["wdCanvasGetVectorTextSize"  ] (canvas: Canvas; s: String; VAR x, y: REAL);
+PROCEDURE [ccall] wdCanvasVectorCharSize*      ["wdCanvasVectorCharSize"     ] (canvas: Canvas; size: REAL): REAL;
+PROCEDURE [ccall] wdCanvasVectorText*          ["wdCanvasVectorText"         ] (canvas: Canvas; x, y: REAL; s: String);
+PROCEDURE [ccall] wdCanvasMultiLineVectorText* ["wdCanvasMultiLineVectorText"] (canvas: Canvas; x, y: REAL; s: String);
+PROCEDURE [ccall] wdCanvasGetVectorTextBounds* ["wdCanvasGetVectorTextBounds"] (canvas: Canvas; s: String; x, y: REAL; VAR rect: REAL);
+PROCEDURE [ccall] wdCanvasGetVectorTextBox*    ["wdCanvasGetVectorTextBox"   ] (canvas: Canvas; x, y: REAL; s: String; VAR xmin, xmax, ymin, ymax: REAL);
+
 BEGIN
 END CdLib.
